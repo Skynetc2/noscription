@@ -104,61 +104,43 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Netflix</td>
-                <td>Subscription</td>
-                <td>Streaming</td>
-                <td>Plex</td>
-                <td>Proprietary</td>
-                <td><a href="https://www.plex.tv" target="_blank">https://www.plex.tv</a></td>
-                <td>Media server software</td>
-            </tr>
-            <tr>
-                <td>Spotify</td>
-                <td>Subscription</td>
-                <td>Music</td>
-                <td>Audacious</td>
-                <td>Open Source</td>
-                <td><a href="https://audacious-media-player.org" target="_blank">https://audacious-media-player.org</a></td>
-                <td>Lightweight audio player</td>
-            </tr>
-            <tr>
-                <td>Microsoft 365</td>
-                <td>Subscription</td>
-                <td>Office</td>
-                <td>LibreOffice</td>
-                <td>Open Source</td>
-                <td><a href="https://www.libreoffice.org" target="_blank">https://www.libreoffice.org</a></td>
-                <td>Office suite</td>
-            </tr>
+            <!-- Data will be inserted here by JavaScript -->
         </tbody>
     </table>
 
-    <!-- Initialize DataTables -->
+    <!-- Initialize DataTables and Load JSON -->
     <script>
         $(document).ready(function() {
-            var table = $('#noscriptionTable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "columnDefs": [
-                    { "width": "15%", "targets": 0 },
-                    { "width": "10%", "targets": 1 },
-                    { "width": "10%", "targets": 2 },
-                    { "width": "15%", "targets": 3 },
-                    { "width": "15%", "targets": 4 },
-                    { "width": "20%", "targets": 5 },
-                    { "width": "15%", "targets": 6 }
-                ],
-                "language": {
-                    "search": "Filter records:"
-                }
-            });
+            $.getJSON('services.json', function(data) {
+                var table = $('#noscriptionTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "data": data,
+                    "columns": [
+                        { "data": "Service Name" },
+                        { "data": "Type" },
+                        { "data": "Category" },
+                        { "data": "Alternative Name" },
+                        { "data": "Alternative Type" },
+                        {
+                            "data": "Alternative URL",
+                            "render": function(data, type, row) {
+                                return '<a href="' + data + '" target="_blank">' + data + '</a>';
+                            }
+                        },
+                        { "data": "Description" }
+                    ],
+                    "language": {
+                        "search": "Filter records:"
+                    }
+                });
 
-            // Filter event handler
-            $('#typeFilter').on('change', function() {
-                var type = $(this).val();
-                table.column(4).search(type).draw();  // Filter by the "Alternative Type" column
+                // Filter event handler
+                $('#typeFilter').on('change', function() {
+                    var type = $(this).val();
+                    table.column(4).search(type).draw();  // Filter by the "Alternative Type" column
+                });
             });
         });
     </script>
