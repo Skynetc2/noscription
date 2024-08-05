@@ -1,13 +1,13 @@
 import pandas as pd
 
 def generate_html_table(file_path):
-    # Load data
+    # Load data from the CSV file
     df = pd.read_csv(file_path)
 
-    # Convert DataFrame to HTML table (without styling, DataTables will handle it)
+    # Convert DataFrame to an HTML table
     html_table = df.to_html(index=False, classes='display', table_id='noscriptionTable', escape=False)
 
-    # Complete HTML page with DataTables integration
+    # Complete HTML page with DataTables integration and retro styling
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -15,41 +15,72 @@ def generate_html_table(file_path):
         <title>Find Alternatives to Subscription-Based Services</title>
         <!-- DataTables CSS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
-        <!-- Custom CSS for styling -->
+        <!-- Custom CSS for retro styling -->
         <style>
             body {{
-                font-family: Arial, sans-serif;
+                font-family: "Courier New", Courier, monospace;
+                background-color: #000;
+                color: #0f0;
                 margin: 20px;
-                background-color: #f8f9fa;
             }}
             h1 {{
                 text-align: center;
-                color: #333;
+                color: #0f0;
             }}
             #noscriptionTable_wrapper {{
                 margin-top: 20px;
             }}
+            table.dataTable {{
+                border: 2px solid #0f0;
+                border-collapse: collapse;
+                width: 100%;
+            }}
             table.dataTable thead th {{
-                background-color: #6c757d;
-                color: white;
+                background-color: #333;
+                color: #0f0;
                 text-align: center;
+                border-bottom: 2px solid #0f0;
             }}
             table.dataTable tbody tr {{
-                background-color: white;
+                background-color: #111;
+                color: #0f0;
             }}
             table.dataTable tbody tr.odd {{
-                background-color: #f2f2f2;
+                background-color: #222;
+            }}
+            table.dataTable tbody tr:hover {{
+                background-color: #555;
             }}
             #noscriptionTable_filter input {{
                 margin-left: 5px;
                 border-radius: 4px;
-                border: 1px solid #ced4da;
+                border: 1px solid #0f0;
                 padding: 5px;
+                background-color: #000;
+                color: #0f0;
+            }}
+            .filter-container {{
+                margin-bottom: 20px;
+                text-align: center;
+            }}
+            select {{
+                background-color: #000;
+                color: #0f0;
+                border: 1px solid #0f0;
+                padding: 5px;
+                margin-right: 10px;
             }}
             footer {{
                 margin-top: 20px;
                 text-align: center;
-                color: #666;
+                color: #0f0;
+            }}
+            a {{
+                color: #0ff;
+                text-decoration: none;
+            }}
+            a:hover {{
+                text-decoration: underline;
             }}
         </style>
         <!-- jQuery -->
@@ -59,11 +90,24 @@ def generate_html_table(file_path):
     </head>
     <body>
         <h1>Find Alternatives to Subscription-Based Services</h1>
+
+        <!-- Filter Dropdowns -->
+        <div class="filter-container">
+            <label for="typeFilter">Filter by Type:</label>
+            <select id="typeFilter">
+                <option value="">All Types</option>
+                <option value="Subscription">Subscription</option>
+                <option value="Proprietary">Proprietary</option>
+                <option value="Open Source">Open Source</option>
+            </select>
+        </div>
+
         {html_table}
+
         <!-- Initialize DataTables -->
         <script>
             $(document).ready(function() {{
-                $('#noscriptionTable').DataTable({{
+                var table = $('#noscriptionTable').DataTable({{
                     "paging": true,
                     "searching": true,
                     "ordering": true,
@@ -80,8 +124,15 @@ def generate_html_table(file_path):
                         "search": "Filter records:"
                     }}
                 }});
+
+                // Filter event handler
+                $('#typeFilter').on('change', function() {{
+                    var type = $(this).val();
+                    table.column(4).search(type).draw();  // Filter by the "Alternative Type" column
+                }});
             }});
         </script>
+
         <footer>
             <p>View this project on <a href="https://github.com/Skynetc2/noscription" target="_blank">GitHub</a>.</p>
         </footer>
