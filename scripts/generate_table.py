@@ -12,7 +12,7 @@ def generate_html_table(file_path):
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Noscription Alternatives</title>
+        <title>Find Alternatives to Subscription-Based Services</title>
         <!-- DataTables CSS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
         <!-- Custom CSS for styling -->
@@ -46,6 +46,11 @@ def generate_html_table(file_path):
                 border: 1px solid #ced4da;
                 padding: 5px;
             }}
+            footer {{
+                margin-top: 20px;
+                text-align: center;
+                color: #666;
+            }}
         </style>
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -53,7 +58,7 @@ def generate_html_table(file_path):
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     </head>
     <body>
-        <h1>Noscription Alternatives</h1>
+        <h1>Find Alternatives to Subscription-Based Services</h1>
         {html_table}
         <!-- Initialize DataTables -->
         <script>
@@ -77,6 +82,9 @@ def generate_html_table(file_path):
                 }});
             }});
         </script>
+        <footer>
+            <p>View this project on <a href="https://github.com/Skynetc2/noscription" target="_blank">GitHub</a>.</p>
+        </footer>
     </body>
     </html>
     """
