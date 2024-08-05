@@ -1,0 +1,29 @@
+[
+    {
+        "Service Name": "Netflix",
+        "Type": "Subscription",
+        "Category": "Streaming",
+        "Alternative Name": "Plex",
+        "Alternative Type": "Proprietary",
+        "Alternative URL": "https://www.plex.tv",
+        "Description": "Media server software"
+    },
+    {
+        "Service Name": "Spotify",
+        "Type": "Subscription",
+        "Category": "Music",
+        "Alternative Name": "Audacious",
+        "Alternative Type": "Open Source",
+        "Alternative URL": "https://audacious-media-player.org",
+        "Description": "Lightweight audio player"
+    },
+    {
+        "Service Name": "Microsoft 365",
+        "Type": "Subscription",
+        "Category": "Office",
+        "Alternative Name": "LibreOffice",
+        "Alternative Type": "Open Source",
+        "Alternative URL": "https://www.libreoffice.org",
+        "Description": "Office suite"
+    }
+]
