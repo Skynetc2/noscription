@@ -4,7 +4,7 @@ Noscription is a project dedicated to finding and sharing alternatives to subscr
 
 ## How to Use
 
-Browse our searchable table to find alternatives to your favorite subscription services.
+You can view and filter the list of alternatives in our [interactive table](https://skynetc2.github.io/noscription/).
 
 ## Contributing
 
