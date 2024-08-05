@@ -4,66 +4,79 @@ def generate_html_table(file_path):
     # Load data
     df = pd.read_csv(file_path)
 
-    # Convert DataFrame to HTML table
-    html_table = df.to_html(index=False, classes='table table-striped', border=0)
+    # Convert DataFrame to HTML table (without styling, DataTables will handle it)
+    html_table = df.to_html(index=False, classes='display', table_id='noscriptionTable', escape=False)
 
-    # Add search functionality using JavaScript
-    search_script = """
-    <script>
-    function searchTable() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById('searchInput');
-        filter = input.value.toUpperCase();
-        table = document.getElementById('dataTable');
-        tr = table.getElementsByTagName('tr');
-        for (i = 1; i < tr.length; i++) {
-            tr[i].style.display = 'none';
-            td = tr[i].getElementsByTagName('td');
-            for (var j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    txtValue = td[j].textContent || td[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = '';
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    </script>
-    """
-
-    # Complete HTML page
+    # Complete HTML page with DataTables integration
     html_content = f"""
     <!DOCTYPE html>
     <html>
     <head>
         <title>Noscription Alternatives</title>
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
+        <!-- Custom CSS for styling -->
         <style>
-            table {{
-                width: 100%;
-                border-collapse: collapse;
+            body {{
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f8f9fa;
             }}
-            th, td {{
-                border: 1px solid #ddd;
-                padding: 8px;
+            h1 {{
+                text-align: center;
+                color: #333;
             }}
-            th {{
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
+            #noscriptionTable_wrapper {{
+                margin-top: 20px;
+            }}
+            table.dataTable thead th {{
+                background-color: #6c757d;
+                color: white;
+                text-align: center;
+            }}
+            table.dataTable tbody tr {{
+                background-color: white;
+            }}
+            table.dataTable tbody tr.odd {{
                 background-color: #f2f2f2;
             }}
-            #searchInput {{
-                margin-bottom: 10px;
+            #noscriptionTable_filter input {{
+                margin-left: 5px;
+                border-radius: 4px;
+                border: 1px solid #ced4da;
+                padding: 5px;
             }}
         </style>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     </head>
     <body>
         <h1>Noscription Alternatives</h1>
-        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for services...">
         {html_table}
-        {search_script}
+        <!-- Initialize DataTables -->
+        <script>
+            $(document).ready(function() {{
+                $('#noscriptionTable').DataTable({{
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "columnDefs": [
+                        {{ "width": "15%", "targets": 0 }},
+                        {{ "width": "10%", "targets": 1 }},
+                        {{ "width": "10%", "targets": 2 }},
+                        {{ "width": "15%", "targets": 3 }},
+                        {{ "width": "15%", "targets": 4 }},
+                        {{ "width": "20%", "targets": 5 }},
+                        {{ "width": "15%", "targets": 6 }}
+                    ],
+                    "language": {{
+                        "search": "Filter records:"
+                    }}
+                }});
+            }});
+        </script>
     </body>
     </html>
     """
