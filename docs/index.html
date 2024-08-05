@@ -2,85 +2,102 @@
 <html>
 <head>
     <title>Noscription Alternatives</title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
+    <!-- Custom CSS for styling -->
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+        h1 {
+            text-align: center;
+            color: #333;
         }
-        th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
+        #noscriptionTable_wrapper {
+            margin-top: 20px;
+        }
+        table.dataTable thead th {
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+        }
+        table.dataTable tbody tr {
+            background-color: white;
+        }
+        table.dataTable tbody tr.odd {
             background-color: #f2f2f2;
         }
-        #searchInput {
-            margin-bottom: 10px;
+        #noscriptionTable_filter input {
+            margin-left: 5px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            padding: 5px;
         }
     </style>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 </head>
 <body>
     <h1>Noscription Alternatives</h1>
-    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for services...">
-    <div id="dataTable">
-        <table class="dataframe table table-striped">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Service Name</th>
-      <th>Type</th>
-      <th>Category</th>
-      <th>Alternative Name</th>
-      <th>Alternative Type</th>
-      <th>Alternative URL</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Netflix</td>
-      <td>Subscription</td>
-      <td>Streaming</td>
-      <td>Plex</td>
-      <td>Proprietary</td>
-      <td>https://www.plex.tv</td>
-      <td>Media server software</td>
-    </tr>
-    <tr>
-      <td>Spotify</td>
-      <td>Subscription</td>
-      <td>Music</td>
-      <td>Audacious</td>
-      <td>Open Source</td>
-      <td>https://audacious-media-player.org</td>
-      <td>Lightweight audio player</td>
-    </tr>
-  </tbody>
-</table>
-    </div>
+    <table id="noscriptionTable" class="display">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Alternative Name</th>
+                <th>Alternative Type</th>
+                <th>Alternative URL</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Netflix</td>
+                <td>Subscription</td>
+                <td>Streaming</td>
+                <td>Plex</td>
+                <td>Proprietary</td>
+                <td><a href="https://www.plex.tv" target="_blank">https://www.plex.tv</a></td>
+                <td>Media server software</td>
+            </tr>
+            <tr>
+                <td>Spotify</td>
+                <td>Subscription</td>
+                <td>Music</td>
+                <td>Audacious</td>
+                <td>Open Source</td>
+                <td><a href="https://audacious-media-player.org" target="_blank">https://audacious-media-player.org</a></td>
+                <td>Lightweight audio player</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Initialize DataTables -->
     <script>
-function searchTable() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value.toUpperCase();
-    table = document.getElementById('dataTable');
-    tr = table.getElementsByTagName('tr');
-    for (i = 1; i < tr.length; i++) {
-        tr[i].style.display = 'none';
-        td = tr[i].getElementsByTagName('td');
-        for (var j = 0; j < td.length; j++) {
-            if (td[j]) {
-                txtValue = td[j].textContent || td[j].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = '';
-                    break;
+        $(document).ready(function() {
+            $('#noscriptionTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "columnDefs": [
+                    { "width": "15%", "targets": 0 },
+                    { "width": "10%", "targets": 1 },
+                    { "width": "10%", "targets": 2 },
+                    { "width": "15%", "targets": 3 },
+                    { "width": "15%", "targets": 4 },
+                    { "width": "20%", "targets": 5 },
+                    { "width": "15%", "targets": 6 }
+                ],
+                "language": {
+                    "search": "Filter records:"
                 }
-            }
-        }
-    }
-}
-</script>
+            });
+        });
+    </script>
 </body>
 </html>
