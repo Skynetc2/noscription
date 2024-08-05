@@ -1,29 +1,47 @@
 [
     {
-        "Service Name": "Netflix",
+        "Service Name": "Spotify",
         "Type": "Subscription",
-        "Category": "Streaming",
-        "Alternative Name": "Plex",
-        "Alternative Type": "Proprietary",
-        "Alternative URL": "https://www.plex.tv",
-        "Description": "Media server software"
+        "Category": "Music Streaming",
+        "Alternative Name": "YouTube Music",
+        "Alternative Type": "Freemium",
+        "Alternative URL": "https://music.youtube.com",
+        "Description": "Music streaming service with free and premium options."
     },
     {
         "Service Name": "Spotify",
         "Type": "Subscription",
-        "Category": "Music",
-        "Alternative Name": "Audacious",
-        "Alternative Type": "Open Source",
-        "Alternative URL": "https://audacious-media-player.org",
-        "Description": "Lightweight audio player"
+        "Category": "Music Streaming",
+        "Alternative Name": "SoundCloud",
+        "Alternative Type": "Freemium",
+        "Alternative URL": "https://www.soundcloud.com",
+        "Description": "Platform for discovering independent artists, free and premium tiers."
+    },
+    {
+        "Service Name": "Netflix",
+        "Type": "Subscription",
+        "Category": "Video Streaming",
+        "Alternative Name": "Tubi",
+        "Alternative Type": "Free",
+        "Alternative URL": "https://www.tubi.tv",
+        "Description": "Free streaming service offering movies and TV shows, supported by ads."
     },
     {
         "Service Name": "Microsoft 365",
         "Type": "Subscription",
-        "Category": "Office",
-        "Alternative Name": "LibreOffice",
-        "Alternative Type": "Open Source",
-        "Alternative URL": "https://www.libreoffice.org",
-        "Description": "Office suite"
+        "Category": "Office Suite",
+        "Alternative Name": "Google Workspace",
+        "Alternative Type": "Freemium",
+        "Alternative URL": "https://workspace.google.com",
+        "Description": "Free online document and collaboration tools, premium for businesses."
+    },
+    {
+        "Service Name": "Dropbox",
+        "Type": "Subscription",
+        "Category": "Cloud Storage",
+        "Alternative Name": "pCloud",
+        "Alternative Type": "Freemium",
+        "Alternative URL": "https://www.pcloud.com",
+        "Description": "Cloud storage with free tier and paid options for more space."
     }
 ]
